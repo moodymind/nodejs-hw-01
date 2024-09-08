@@ -1,3 +1,17 @@
-const generateContacts = async (number) => {};
+import { createFakeContact } from '../utils/createFakeContact.js';
+import { writeContacts } from '../utils/writeContacts.js';
+import { readContacts } from '../utils/readContacts.js';
 
-generateContacts(5);
+const generateContacts = async (number) => {
+  try {
+    const contacts = await readContacts();
+    for (let i = 0; i < number; i += 1) {
+      contacts.push(createFakeContact());
+    }
+    await writeContacts(contacts);
+  } catch (error) {
+    console.error('Your contacts file was not read', error);
+  }
+};
+
+generateContacts(10);
